@@ -18,6 +18,12 @@ dependencies {
     implementation 'net.lingala.zip4j:zip4j:2.11.5'
     implementation 'org.ow2.asm:asm:9.5'
     implementation 'org.ow2.asm:asm-commons:9.5'
+    
+    // Apache HttpClient for tunnel Info API polling
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    
+    // JSON parsing for tunnel API responses
+    implementation 'org.json:json:20231013'
 }
 
 group = 'io.github.lambdatest'
@@ -171,18 +177,12 @@ publishing {
     }
     
     repositories {
-        // Maven Central (Sonatype Central Portal - NEW API)
+        // Maven Central via Sonatype OSSRH (legacy)
         maven {
             name = "sonatype"
-            url = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
-            credentials {
-                username = ossrhUsername
-                password = ossrhPassword
-            }
-        }
-        maven {
-            name = "sonatypeSnapshots"
-            url = uri("https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots/")
+            def releasesRepoUrl = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            def snapshotsRepoUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             credentials {
                 username = ossrhUsername
                 password = ossrhPassword
@@ -192,6 +192,16 @@ publishing {
 }
 
 // Configure signing (required by Maven Central)
+// Uses GPG command for GPG 2.1+ (gpg-agent based)
 signing {
+    useGpgCmd()
     sign publishing.publications
+}
+
+// Configure GPG to use loopback pinentry for non-interactive signing
+tasks.withType(Sign) {
+    doFirst {
+        project.ext.set("signing.gnupg.executable", "gpg")
+        project.ext.set("signing.gnupg.useLegacyGpg", false)
+    }
 }
