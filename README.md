@@ -1,17 +1,17 @@
-# LambdaTest Selenium Java SDK
+# TestMu AI Selenium Java SDK — TestMu AI (Formerly LambdaTest)
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.lambdatest/lambdatest-selenium-java-sdk.svg)](https://central.sonatype.com/artifact/io.github.lambdatest/lambdatest-selenium-java-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A powerful Java SDK for seamlessly integrating Selenium tests with the LambdaTest cloud platform. This SDK provides automatic capability injection, test status management, and simplified configuration for running Selenium tests on LambdaTest's cloud infrastructure.
+A powerful Java SDK for seamlessly integrating Selenium tests with the TestMu AI cloud platform. This SDK provides automatic capability injection, test status management, and simplified configuration for running Selenium tests on TestMu AI's cloud infrastructure.
 
 ## Features
 
-✨ **Automatic Capability Injection** - No need to manually configure LambdaTest capabilities  
+✨ **Automatic Capability Injection** - No need to manually configure TestMu AI capabilities  
 🔧 **Java Agent Support** - Bytecode instrumentation for seamless integration  
-📊 **Test Status Management** - Automatically mark tests as passed/failed on LambdaTest  
+📊 **Test Status Management** - Automatically mark tests as passed/failed on TestMu AI  
 🎯 **Framework Support** - Works with TestNG, JUnit 5, and plain Selenium tests  
-🌐 **Tunnel Management** - Built-in support for LambdaTest Tunnel  
+🌐 **Tunnel Management** - Built-in support for TestMu AI Tunnel  
 ⚙️ **YAML Configuration** - Simple YAML-based configuration  
 🚀 **Zero Code Changes** - Just add the agent, no changes to existing tests  
 
@@ -160,8 +160,8 @@ gridUrl: https://hub.lambdatest.com/wd/hub
 
 You can also configure using environment variables:
 
-- `LT_USERNAME` - LambdaTest username
-- `LT_ACCESS_KEY` - LambdaTest access key
+- `LT_USERNAME` - TestMu AI username
+- `LT_ACCESS_KEY` - TestMu AI access key
 - `LT_GRID_URL` - Grid URL (default: https://hub.lambdatest.com/wd/hub)
 
 ## Framework Integration
@@ -202,7 +202,7 @@ Use the JUnit transformer with the Java agent (automatically detected).
 
 ### Tunnel Management
 
-Enable LambdaTest Tunnel for testing local/private applications:
+Enable TestMu AI Tunnel for testing local/private applications:
 
 ```yaml
 tunnel:
@@ -351,9 +351,9 @@ public class CrossBrowserTest {
 
 ### Common Issues
 
-**Issue: Driver not connecting to LambdaTest**
+**Issue: Driver not connecting to TestMu AI**
 - Verify credentials in `lambdatest.yaml` or environment variables
-- Check your LambdaTest account has active minutes
+- Check your TestMu AI account has active minutes
 - Ensure grid URL is correct
 
 **Issue: Java agent not working**
@@ -364,7 +364,7 @@ public class CrossBrowserTest {
 **Issue: Tests not marked as passed/failed**
 - Ensure TestNG listener is configured
 - Verify driver session ID is available
-- Check network connectivity to LambdaTest
+- Check network connectivity to TestMu AI
 
 ### Enable Debug Logging
 
@@ -397,17 +397,36 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📧 Email: support@lambdatest.com
-- 📚 Documentation: https://www.lambdatest.com/support/docs/
-- 💬 Community: https://community.lambdatest.com/
+- 📧 Email: support@testmuai.com
+- 📚 Documentation: https://www.testmuai.com/support/docs/
+- 💬 Community: https://community.testmuai.com/
 - 🐛 Issues: [GitHub Issues](https://github.com/LambdatestIncPrivate/lambdatest-selenium-java-sdk/issues)
 
 ## Links
 
-- [LambdaTest Platform](https://www.lambdatest.com/)
-- [LambdaTest Documentation](https://www.lambdatest.com/support/docs/)
+- [TestMu AI Platform](https://www.testmuai.com/)
+- [TestMu AI Documentation](https://www.testmuai.com/support/docs/)
 - [Maven Central Repository](https://central.sonatype.com/artifact/io.github.lambdatest/lambdatest-selenium-java-sdk)
 
 ---
 
-Made with ❤️ by [LambdaTest](https://www.lambdatest.com/)
+Made with ❤️ by [TestMu AI](https://www.testmuai.com/)
+
+## 🚀 [LambdaTest is Now TestMu AI](https://www.testmuai.com/lambdatest-is-now-testmuai/)
+
+👋 Welcome to TestMu AI, the next evolution of LambdaTest. As of January 2026, LambdaTest has officially rebranded to TestMu AI. We have evolved from a cross-browser testing cloud into a unified, AI-native quality engineering platform designed for the modern DevOps era.
+
+Whether you have been part of the LambdaTest community for years or are just discovering TestMu AI, our mission remains the same: to help you ship faster with high-scale test execution, autonomous testing, and deep quality analytics.
+
+**🔄 Our Rebrand Journey**
+
+We chose the name TestMu AI to reflect our shift towards intelligent, autonomous testing. While our identity has changed, our core technology and commitment to the testing community stay the same.
+
+**✨ Specialties**
+
+- 🤖 AI-Native Test Execution (Formerly LambdaTest)
+- ⚡ Autonomous Test Automation
+- 🌐 Cross-Browser & Mobile Testing
+- 📊 Unified Quality Intelligence
+
+👉 Find [LambdaTest's New Home](https://www.testmuai.com/).
