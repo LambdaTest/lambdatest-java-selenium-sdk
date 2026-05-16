@@ -1,413 +1,112 @@
-# LambdaTest Selenium Java SDK
+# Run Selenium Tests with Java SDK on TestMu AI (Formerly LambdaTest)
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.lambdatest/lambdatest-selenium-java-sdk.svg)](https://central.sonatype.com/artifact/io.github.lambdatest/lambdatest-selenium-java-sdk)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<p align="center">
+  <a href="https://www.testmuai.com/"><img src="https://img.shields.io/badge/MADE%20BY%20TestMu%20AI-000000.svg?style=for-the-badge&labelColor=000" alt="Made by TestMu AI"></a>
+  <a href="https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java"><img src="https://img.shields.io/maven-central/v/org.seleniumhq.selenium/selenium-java.svg?style=for-the-badge&labelColor=000000" alt="Selenium version"></a>
+  <a href="https://community.testmuai.com/"><img src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&labelColor=000000" alt="Community"></a>
+</p>
 
-A powerful Java SDK for seamlessly integrating Selenium tests with the LambdaTest cloud platform. This SDK provides automatic capability injection, test status management, and simplified configuration for running Selenium tests on LambdaTest's cloud infrastructure.
+## Getting Started
 
-## Features
+[TestMu AI](https://www.testmuai.com/) (Formerly LambdaTest) is the world's first full-stack AI Agentic Quality Engineering platform that empowers teams to test intelligently, smarter, and ship faster. Built for scale, it offers a full-stack testing cloud with 10K+ real devices and 3,000+ browsers. With AI-native test management, MCP servers, and agent-based automation, TestMu AI supports Selenium, Appium, Playwright, and all major frameworks. 
 
-✨ **Automatic Capability Injection** - No need to manually configure LambdaTest capabilities  
-🔧 **Java Agent Support** - Bytecode instrumentation for seamless integration  
-📊 **Test Status Management** - Automatically mark tests as passed/failed on LambdaTest  
-🎯 **Framework Support** - Works with TestNG, JUnit 5, and plain Selenium tests  
-🌐 **Tunnel Management** - Built-in support for LambdaTest Tunnel  
-⚙️ **YAML Configuration** - Simple YAML-based configuration  
-🚀 **Zero Code Changes** - Just add the agent, no changes to existing tests  
+With TestMu AI (Formerly LambdaTest), you can run Selenium tests using the Java SDK across real browsers and operating systems. This sample shows how to configure the LambdaTest Java Selenium SDK with Gradle to run on the TestMu AI cloud.
 
-## Installation
-
-### Maven
-
-Add the following dependency to your `pom.xml`:
-
-```xml
-<dependency>
-    <groupId>io.github.lambdatest</groupId>
-    <artifactId>lambdatest-selenium-java-sdk</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
-
-### Gradle
-
-Add the following to your `build.gradle`:
-
-```gradle
-dependencies {
-    implementation 'io.github.lambdatest:lambdatest-selenium-java-sdk:1.0.0'
-}
-```
-
-### Gradle Kotlin DSL
-
-Add the following to your `build.gradle.kts`:
-
-```kotlin
-dependencies {
-    implementation("io.github.lambdatest:lambdatest-selenium-java-sdk:1.0.0")
-}
-```
-
-## Quick Start
-
-### 1. Configuration
-
-Create a `lambdatest.yaml` file in your project root:
-
-```yaml
-# LambdaTest credentials
-username: YOUR_LAMBDATEST_USERNAME
-accessKey: YOUR_LAMBDATEST_ACCESS_KEY
-
-# Browser capabilities
-capabilities:
-  browserName: chrome
-  browserVersion: latest
-  platformName: Windows 10
-  
-# Test configuration
-testName: My Selenium Test
-build: Build #1
-project: My Project
-```
-
-### 2. Using the Java Agent (Recommended)
-
-The easiest way to use this SDK is with the Java agent, which automatically instruments your Selenium tests:
-
-**Maven:**
-
-```bash
-mvn test -DargLine="-javaagent:/path/to/lambdatest-selenium-java-sdk-1.0.0-agent.jar"
-```
-
-**Gradle:**
-
-```bash
-./gradlew test -Djvmargs="-javaagent:/path/to/lambdatest-selenium-java-sdk-1.0.0-agent.jar"
-```
-
-**IDE (IntelliJ IDEA / Eclipse):**
-
-Add VM option: `-javaagent:/path/to/lambdatest-selenium-java-sdk-1.0.0-agent.jar`
-
-### 3. Using Programmatically (Alternative)
-
-If you prefer not to use the agent, you can use the SDK programmatically:
-
-```java
-import com.lambdatest.selenium.LambdaTestRemoteTest;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.Test;
-
-public class MySeleniumTest extends LambdaTestRemoteTest {
-    
-    @Test
-    public void testGoogle() {
-        WebDriver driver = getDriver(); // Automatically configured for LambdaTest
-        
-        driver.get("https://www.google.com");
-        System.out.println("Title: " + driver.getTitle());
-        
-        // Test will be automatically marked as passed/failed
-    }
-}
-```
-
-## Configuration Options
-
-### YAML Configuration File
-
-Create `lambdatest.yaml` in your project root:
-
-```yaml
-# Authentication (Required)
-username: YOUR_USERNAME
-accessKey: YOUR_ACCESS_KEY
-
-# Or use environment variables:
-# username: ${LT_USERNAME}
-# accessKey: ${LT_ACCESS_KEY}
-
-# Capabilities (Optional - will be merged with test capabilities)
-capabilities:
-  browserName: chrome
-  browserVersion: latest
-  platformName: Windows 10
-  resolution: 1920x1080
-  
-# LambdaTest Options
-ltOptions:
-  build: Build #1
-  project: My Project
-  network: true
-  video: true
-  console: true
-  visual: true
-  
-# Tunnel Configuration (Optional)
-tunnel:
-  enabled: true
-  name: my-tunnel
-  
-# Grid Configuration
-gridUrl: https://hub.lambdatest.com/wd/hub
-```
-
-### Environment Variables
-
-You can also configure using environment variables:
-
-- `LT_USERNAME` - LambdaTest username
-- `LT_ACCESS_KEY` - LambdaTest access key
-- `LT_GRID_URL` - Grid URL (default: https://hub.lambdatest.com/wd/hub)
-
-## Framework Integration
-
-### TestNG
-
-Add TestNG listener for automatic test status updates:
-
-```xml
-<!-- testng.xml -->
-<suite name="LambdaTest Suite">
-    <listeners>
-        <listener class-name="com.lambdatest.selenium.LambdaTestStatusListener"/>
-    </listeners>
-    
-    <test name="My Tests">
-        <classes>
-            <class name="com.example.MyTest"/>
-        </classes>
-    </test>
-</suite>
-```
-
-Or programmatically:
-
-```java
-@Listeners(LambdaTestStatusListener.class)
-public class MyTest {
-    // Your tests
-}
-```
-
-### JUnit 5
-
-Use the JUnit transformer with the Java agent (automatically detected).
-
-## Advanced Usage
-
-### Tunnel Management
-
-Enable LambdaTest Tunnel for testing local/private applications:
-
-```yaml
-tunnel:
-  enabled: true
-  name: my-tunnel
-  # Additional tunnel options
-  tunnelName: custom-tunnel
-  verbose: true
-```
-
-### Custom Capabilities
-
-Merge custom capabilities with configured ones:
-
-```java
-import com.lambdatest.selenium.LambdaTestCapabilities;
-import org.openqa.selenium.chrome.ChromeOptions;
-
-ChromeOptions options = new ChromeOptions();
-options.addArguments("--start-maximized");
-
-// SDK will merge these with lambdatest.yaml capabilities
-LambdaTestCapabilities.enhance(options);
-```
-
-### Parallel Execution
-
-The SDK fully supports parallel test execution:
-
-**TestNG:**
-
-```xml
-<suite name="Parallel Suite" parallel="tests" thread-count="5">
-    <test name="Chrome Test">
-        <parameter name="browser" value="chrome"/>
-        <classes><class name="com.example.Test1"/></classes>
-    </test>
-    <test name="Firefox Test">
-        <parameter name="browser" value="firefox"/>
-        <classes><class name="com.example.Test1"/></classes>
-    </test>
-</suite>
-```
-
-## Building from Source
+- [Sign up on TestMu AI](https://www.testmuai.com/register/) (Formerly LambdaTest).
+- Follow the [TestMu AI Documentation](https://www.testmuai.com/support/docs/) for the full setup walkthrough.
 
 ### Prerequisites
 
 - Java 8 or higher
-- Gradle 7.0+
+- Gradle
+- A TestMu AI (Formerly LambdaTest) account with your username and access key
 
-### Build
+### Setup
+
+Clone and install dependencies:
 
 ```bash
-# Clone the repository
-git clone https://github.com/LambdatestIncPrivate/lambdatest-selenium-java-sdk.git
-cd lambdatest-selenium-java-sdk
-
-# Build the project
+git clone https://github.com/LambdaTest/lambdatest-java-selenium-sdk && cd lambdatest-java-selenium-sdk
 ./gradlew clean build
-
-# Generated artifacts will be in build/libs/
-# - lambdatest-selenium-java-sdk-1.0.0.jar (main JAR)
-# - lambdatest-selenium-java-sdk-1.0.0-agent.jar (agent JAR with dependencies)
 ```
 
-### Publishing
+Set your credentials as environment variables.
 
-For maintainers publishing to Maven Central:
+**macOS / Linux:**
 
 ```bash
-# See MAVEN_CENTRAL_PUBLISHING.md for detailed instructions
-./verify-setup.sh          # Verify publishing prerequisites
-./gradlew publishToMavenLocal  # Test local publishing
-./gradlew publishMavenJavaPublicationToOSSRHRepository  # Publish to Maven Central
+export LT_USERNAME="YOUR_USERNAME"
+export LT_ACCESS_KEY="YOUR_ACCESS_KEY"
 ```
 
-## Examples
+**Windows:**
 
-### Basic Test
-
-```java
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import java.net.URL;
-
-public class BasicTest {
-    WebDriver driver;
-    
-    @BeforeMethod
-    public void setup() throws Exception {
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability("platformName", "Windows 10");
-        options.setCapability("browserVersion", "latest");
-        
-        // SDK will automatically inject LambdaTest capabilities
-        driver = new RemoteWebDriver(
-            new URL("https://hub.lambdatest.com/wd/hub"), 
-            options
-        );
-    }
-    
-    @Test
-    public void testExample() {
-        driver.get("https://www.example.com");
-        String title = driver.getTitle();
-        System.out.println("Page title: " + title);
-        assert title.contains("Example");
-    }
-    
-    @AfterMethod
-    public void teardown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-}
+```bash
+set LT_USERNAME="YOUR_USERNAME"
+set LT_ACCESS_KEY="YOUR_ACCESS_KEY"
 ```
 
-### Cross-Browser Testing
+### Run tests
 
-```java
-import org.testng.annotations.*;
-
-public class CrossBrowserTest {
-    
-    @Parameters({"browser", "version", "platform"})
-    @BeforeMethod
-    public void setup(String browser, String version, String platform) {
-        // SDK automatically configures based on parameters
-    }
-    
-    @Test
-    public void testAcrossBrowsers() {
-        // Your test code
-    }
-}
+```bash
+./gradlew clean build
 ```
 
-## Troubleshooting
+View results on your TestMu AI dashboard.
 
-### Common Issues
+### Local testing with TestMu AI Tunnel
 
-**Issue: Driver not connecting to LambdaTest**
-- Verify credentials in `lambdatest.yaml` or environment variables
-- Check your LambdaTest account has active minutes
-- Ensure grid URL is correct
+To test locally hosted apps, set up the TestMu AI tunnel. OS-specific guides:
 
-**Issue: Java agent not working**
-- Verify agent JAR path is correct
-- Use the `-agent` classifier JAR (with all dependencies)
-- Check Java version compatibility (Java 8+)
+- [Local Testing on Windows](https://www.testmuai.com/support/docs/local-testing-for-windows/)
+- [Local Testing on macOS](https://www.testmuai.com/support/docs/local-testing-for-macos/)
+- [Local Testing on Linux](https://www.testmuai.com/support/docs/local-testing-for-linux/)
 
-**Issue: Tests not marked as passed/failed**
-- Ensure TestNG listener is configured
-- Verify driver session ID is available
-- Check network connectivity to LambdaTest
+Add the following to your capabilities:
 
-### Enable Debug Logging
-
-Add to your test:
-
-```java
-System.setProperty("lambdatest.debug", "true");
+```js
+tunnel: true,
 ```
 
-## Requirements
+## Contributions
 
-- **Java**: 8 or higher
-- **Selenium**: 4.x (tested with 4.15.0)
-- **TestNG**: 7.4.0+ (optional, for TestNG integration)
-- **JUnit**: 5.10.0+ (optional, for JUnit integration)
+Contributions are welcome. Open an issue to discuss your idea before submitting a pull request. When reporting bugs, include your Java version, OS, and Gradle version.
 
-## Contributing
+## TestMu AI (Formerly LambdaTest) Community
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Connect with testers and developers in the [TestMu AI Community](https://community.testmuai.com/). Ask questions, share what you are building, and discuss best practices in test automation and DevOps.
+  
+## TestMu AI (Formerly LambdaTest) Certifications
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Earn free [TestMu AI Certifications](https://www.testmuai.com/certifications/) for testers, developers, and QA engineers. Validate your skills in Selenium, Cypress, Playwright, Appium, Espresso and more. Industry-recognized, shareable on LinkedIn, and built by practitioners, not marketers.
 
-## License
+## Learning Resources by TestMu AI (Formerly LambdaTest)
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Learn modern testing through tutorials, guides, videos, and weekly updates:
+
+* [TestMu AI Blog](https://www.testmuai.com/blog/)
+* [TestMu AI Learning Hub](https://www.testmuai.com/learning-hub/)
+* [TestMu AI on YouTube](https://www.youtube.com/@TestMuAI)
+* [TestMu AI Newsletter](https://www.testmuai.com/newsletter/)
+  
+## LambdaTest is Now TestMu AI
+
+On **January 12, 2026**, [LambdaTest evolved to TestMu AI](https://www.testmuai.com/lambdatest-is-now-testmuai/), the world's first fully autonomous **Agentic AI Quality Engineering Platform**.
+
+Same team. Same infrastructure. Same customer accounts. All existing LambdaTest logins, scripts, capabilities, and integrations continue to work without change.
+
+👉 Find the new home for [LambdaTest](https://www.testmuai.com).
+
+### How LambdaTest Evolved into TestMu AI
+
+In 2017, we launched LambdaTest with a simple mission: make testing fast, reliable, and accessible. As LambdaTest grew, we expanded into Test Intelligence, Visual Regression Testing, Accessibility Testing, API Testing, and Performance Testing, covering the full depth of the testing lifecycle.
+
+As software development entered the AI era, testing had to evolve, too. We rebuilt the architecture to be AI-native from the ground up, with autonomous agents that **plan, author, execute, analyze, and optimize tests** while keeping humans in the loop. The platform integrates with your repos, CI, IDEs, and terminals, continuously learning from every code change and development signal.
+
+That evolution earned a new name: **TestMu AI**, built for an AI-first future of quality engineering. TestMu is not a new name for us. It is the name of our annual community conference, which has brought together 100,000+ quality engineers to discuss how AI would reshape testing, long before that became an industry norm. 
+
+What started as a high-performance cloud testing platform has transformed into an AI-native, multi-agent system powering a connected, end-to-end quality layer. That evolution defined a new identity: LambdaTest evolved into TestMu AI, built for an AI-first future of quality engineering.
 
 ## Support
 
-- 📧 Email: support@lambdatest.com
-- 📚 Documentation: https://www.lambdatest.com/support/docs/
-- 💬 Community: https://community.lambdatest.com/
-- 🐛 Issues: [GitHub Issues](https://github.com/LambdatestIncPrivate/lambdatest-selenium-java-sdk/issues)
-
-## Links
-
-- [LambdaTest Platform](https://www.lambdatest.com/)
-- [LambdaTest Documentation](https://www.lambdatest.com/support/docs/)
-- [Maven Central Repository](https://central.sonatype.com/artifact/io.github.lambdatest/lambdatest-selenium-java-sdk)
-
----
-
-Made with ❤️ by [LambdaTest](https://www.lambdatest.com/)
+Got a question? Email [support@testmuai.com](mailto:support@testmuai.com) or chat with us 24x7 from our chat portal.
